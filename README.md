@@ -112,8 +112,8 @@ Ok, let's examinate the `createPaginator` function. It receives 3 arguments :
 * **`endpoint`** : the paginated endpoint
 * **`names`** *(array)* : an array of names. Lets you have multiple `currentPage` for the same endpoint, for example when dealing with many datatables on the same page with paginated items from the same base endpoint but with diffent params (more on this bellow). For now, we only need one paginated `todos` list at a time.
 * **`options`** *(object)* : an object defining 4 options :
-  - `resultsKey` defines the key to look for results in the response received from the api. If you omit this option, the paginator will look for results directly in the response (i.e, the response *is* the result array)
-  - `countKey` defines the key to look for total count of items if provided by the api
+  - `resultsKey` defines the key to look for results in the response received from the api. If you omit this option, the paginator will look for results directly in the response (i.e, the response *is* the result array). You can also use a point-separated string to look for a deep value such as `'data.items'`
+  - `countKey` defines the key to look for total count of items if provided by the api. You can also use a point-separated string to look for a deep value such as `'meta.pagination.count'`
   - `initialItem` defines the shape of your initial item in case you want additionnal fields to be present only on the client-side, we don't use it here but we could have passed a specific `todo` item shape defining some default value such as `{id: undefined, text: '', state: 'saved'}`. Used for reducing the response to your entities reducer. More on this bellow.
 
 The created `paginator` object exposes these properties :
