@@ -1,4 +1,5 @@
 import { call, take, put, fork } from 'redux-saga/effects'
+import get from 'lodash.get'
 
 import { receivePage } from './actions'
 import { REQUEST_PAGE } from './actionTypes'
@@ -16,8 +17,8 @@ export function *fetchPage(endpoint, name, initialItem, resultsKey, countKey, pa
       results = response
     }
     else {
-      results = response[resultsKey]
-      count = response[countKey]
+      results = get(response, resultsKey, response[resultsKey])
+      count = get(response, countKey, response[countKey])
     }
     yield put(receivePage(endpoint, name, initialItem, pageArgName, idKey, page, params, results, count, response, !(typeof fromCache == 'undefined')))
   } catch(error) {

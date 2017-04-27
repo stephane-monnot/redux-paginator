@@ -1,3 +1,4 @@
+import get from 'lodash.get'
 import { REQUEST_PAGE } from './actionTypes'
 import { receivePage } from './actions'
 import {
@@ -35,8 +36,8 @@ const paginatorMiddleware = ({ dispatch }) => next => action => {
               results = response
             }
             else {
-              results = response[resultsKey]
-              count = response[countKey]
+              results = get(response, resultsKey, response[resultsKey])
+              count = get(response, countKey, response[countKey])
             }
             dispatch(receivePage(
               endpoint,
